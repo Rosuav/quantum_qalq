@@ -15,6 +15,7 @@ def test():
 def compound_interest_get():
   return render_template('compound_interest.html',
                          my_title="Compound Interest",
+                         result='',
                          current_time=datetime.datetime.now())
 
 @app.route("/fin", methods=["POST"])
@@ -23,7 +24,10 @@ def compound_interest_post():
   interest_rate = float(request.form["interest_rate"])
   time = float(request.form["time"])
   future_value = present_value * ((1 + interest_rate) ** time)
-  return redirect(url_for("compound_interest_get"))
+  return render_template('compound_interest.html',
+                         my_title="Compound Interest",
+                         result=future_value,
+                         current_time=datetime.datetime.now())
 
 @app.route("/min", methods=["GET"])
 def minimum_balance_get():
